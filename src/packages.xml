@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<overviews> 
+    <packages> 
+        <package name="br.flashpedia.DynamicNavigation.core"> 
+            <shortDescription> 
+                <![CDATA[ 
+                    
+                ]]> 
+            </shortDescription> 
+            <description> 
+                <![CDATA[ 
+                    
+                ]]> 
+            </description> 
+        </package>
+    </packages> 
+</overviews>

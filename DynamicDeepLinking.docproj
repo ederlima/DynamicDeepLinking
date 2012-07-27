@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<docProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <pageTitle>DynamicDeeplinking</pageTitle>
+  <classPaths>E:\Arquivos\ESTUDOS\swfaddress-2.4\swfaddress-2.4\src\as\3;E:\Arquivos\ESTUDOS\DynamicDeepLinking\src\br\flashpedia\DynamicNavigation</classPaths>
+  <sourcesList />
+  <outputDirectory>E:\Arquivos\ESTUDOS\DynamicDeepLinking\docs</outputDirectory>
+  <activeCompiler>1</activeCompiler>
+  <extraOptions>-package br.flashpedia.DynamicNavigation.core "Classes Principais do pacote" -package br.flashpedia.DynamicNavigation.data "Classes de Dados auxiliares do pacote" -package br.flashpedia.DynamicNavigation.events "Classes de Eventos das Classes Principais do pacote"</extraOptions>
+</docProject>

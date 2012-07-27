@@ -1,0 +1,371 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../print.css" type="text/css" media="print">
+<meta content="DynamicNavigator,br.flashpedia.DynamicNavigation.core.DynamicNavigator,defaultTarget,itens,loadedItens,siteTitle,addItem,getInstance,init,navigateTo" name="keywords">
+<title>br.flashpedia.DynamicNavigation.core.DynamicNavigator</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'DynamicNavigator - API Documentation';
+				var baseRef = '../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">DynamicDeeplinking</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../index-list.html')" href="../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../index.html?br/flashpedia/DynamicNavigation/core/DynamicNavigator.html&amp;br/flashpedia/DynamicNavigation/core/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;DynamicNavigator</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class DynamicNavigator"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">br.flashpedia.DynamicNavigation.core</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class DynamicNavigator</td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">DynamicNavigator <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../../images/inherit-arrow.gif"> flash.events.EventDispatcher</td>
+</tr>
+</table>
+<p></p>
+  <h2>DynamicNavigator : Singleton </h2>
+  <p>Classe que controla todo o sistema de navegação por <a href="http://en.wikipedia.org/wiki/Deep_linking" title="Deeplinking na Wikipedia" target="_blank">DeepLinking </a>permitindo assim a navegação em níveis dentro do Flash.<br />
+    Esta Classe utiliza as Classes TopLevel SWFAddress e SWFAddressEvent, que você pode encontrar aqui: <a href="http://www.asual.com" title="Asual" target="_blank">http://www.asual.com</a>.</p>
+ 
+  <p><strong>Como funciona:</strong></p>
+  <p>A DynamicNavigator funciona como uma lista de canais a serem controlados, esta lista de canais possui itens com informações padronizadas, cada item é um Objeto da Classe DynamicItem, a classe DynamicNavigator é responsável por controlar quais itens existem, quais foram ou não carregados e disparar eventos que informem a esses canais como funcionar.</p>
+  <p><strong>Modo de uso:</strong></p>
+  <p>Crie objetos <strong>DynamicItem</strong>, ex:</p>
+  <p><blockquote>var item1:DynamicItem = new DynamicItem();<br />
+    item1.label = &quot;Item 1&quot;;<br />
+    item1.name = &quot;item1&quot;;<br />
+    item1.deeplink = &quot;/canal1/&quot;;<br />
+    item1.file = &quot;canal1.swf&quot;;</blockquote> </p>
+  <p>Repita os passos para cada canal (você pode cirar itens a partir de um xml, ou de uma string Json)</p>
+  <p>A classe <strong>DynamicNavigator</strong> é Singleton, só pode ser instanciada uma vez, então utilize <strong>obj.getInstance();</strong> ao invés de <strong>obj = new DynamicNavigator();</strong></p>
+  <p><blockquote>var navigator:DynamicNavigator;<br />
+    navigator = DynamicNavigator.getInstance();</blockquote> </p>
+  <p><strong>Adicione os itens a lista do DynanicNavigator:</strong></p>
+  <p><blockquote>navigator.addItem(item1); //E assim por diante com todos, em seguida, inicie o navegador<br />
+    navigator.init(&quot;/canal1/&quot;, &quot;/404/&quot;);</blockquote></p>
+  <p>Repare que foram utilizados dois canais como parâmetros para início do navegador, um para canal inicial e outro para canal de erro, desta forma:</p>
+  <ul>
+    <li>Canal inicial: Será carregado por padrão, ao iniciar a classe, caso não haja deeplink configurado, ex: http://www.seusite.com/</li>
+    <li>Canal de erro: Será carregado caso, ao iniciar a classe ou navegar, o canal configurado no deeplink não exista na lista do navegador, ex: http://www.seusite.com/#/canal-invalido/</li>
+  </ul>
+  <p><strong>Para configurar o site para carregar o canal informado no deeplink ao navegar, ex: http://www.seusite.com/#/canal1/, adicione, antes de iniciar a classe:</strong></p>
+  <p><blockquote>navigator.addEventListener(DynamicNavigatorEvent.CHANGE, onChangeFunction);<br />
+    function onChangeFunction(event:DynamicNavigatorEvent):void<br />
+    {<br />
+    navigator.navigateTo(event.navigatorData.anchorValue);<br />
+    } </blockquote></p>
+  <p>Dessa forma, você pode enviar um link direto para uma pessoa, ex: http://www.seusite.com/#/canal1/ que ao carregar o navegador checará a existência desse item em sua lista e carregará corretamente o canal, ou informará o erro caso não exista.</p>
+  <p><strong>Em síntese:</strong></p>
+  <blockquote>
+  <p>import br.flashpedia.DynamicNavigation.core.<br />
+    import br.flashpedia.DynamicNavigation.data.<br />
+    import br.flashpedia.DynamicNavigation.events.</p>
+  <p> var navigator:DynamicNavigator;<br />
+    navigator = DynamicNavigator.getInstance();</p>
+  <p>var item1:DynamicItem = new DynamicItem();<br />
+    item1.label = &quot;Item 1&quot;;<br />
+    item1.name = &quot;item1&quot;;<br />
+    item1.deeplink = &quot;/canal1/&quot;;<br />
+    item1.file = &quot;canal1.swf&quot;;</p>
+  <p>navigator.addItem(item1);</p>
+  <p>navigator.addEventListener(DynamicNavigatorEvent.CHANGE, onChange);</p>
+  <p>navigator.init(&quot;/canalpadrao/&quot;, &quot;/canaldeerro/&quot;); </p>
+  </blockquote>
+  <p>Obviamente que você pode criar botões de menu e navegar através deles, basta anexar uma propriedade com valor do deeplink de um DynamicItem existente na lista do DynamicNavigator, ex:</p>
+  <blockquote>
+  <p>button1.deeplink = &quot;/canal1/&quot;;<br />
+    button1.addEventListener(MouseEvent.CLICK, navOnClick);<br />
+    function navOnClick(event:MouseEvent):void<br />
+    {<br />
+    navigator.navigateTo(event.target.deeplink); <br />
+    }</p>
+  </blockquote>
+  </body>
+  <p></p>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#defaultTarget">defaultTarget</a> : MovieClip<div class="summaryTableDescription">
+   Alvo padrão para todos os canais
+   <br />MovieClip que serve de container para todos os canais
+   </div>
+</td><td class="summaryTableOwnerCol">DynamicNavigator</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#itens">itens</a> : Dictionary<div class="summaryTableDescription">
+   Dictionary contendo os itens
+   </div>
+</td><td class="summaryTableOwnerCol">DynamicNavigator</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#loadedItens">loadedItens</a> : Dictionary<div class="summaryTableDescription">[read-only]
+   Dictionary com itens já carregados
+   </div>
+</td><td class="summaryTableOwnerCol">DynamicNavigator</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#siteTitle">siteTitle</a> : String<div class="summaryTableDescription">
+   Nome padrão do Site na barra de título do navegador
+   </div>
+</td><td class="summaryTableOwnerCol">DynamicNavigator</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#DynamicNavigator()">DynamicNavigator</a>()</div>
+<div class="summaryTableDescription">
+   Construtor da Classe: Singleton
+   <br />Não pode ser instanciado
+   </div>
+</td><td class="summaryTableOwnerCol">DynamicNavigator</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addItem()">addItem</a>(menuItem:<a href="../data/DynamicItem.html">DynamicItem</a>):void</div>
+<div class="summaryTableDescription">
+   Adiciona itens ao navegador, para que seja criada uma lista de canais
+   </div>
+</td><td class="summaryTableOwnerCol">DynamicNavigator</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getInstance()">getInstance</a>():<a href="../core/DynamicNavigator.html">DynamicNavigator</a>
+</div>
+<div class="summaryTableDescription">[static]
+   Usa o Singleton DynamicNavigator do ambiente ou cria uma instância para ser utilizada
+   </div>
+</td><td class="summaryTableOwnerCol">DynamicNavigator</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#init()">init</a>(defaultChannel:String, errorChannel:String):void</div>
+<div class="summaryTableDescription">
+   Inicia a execução do navegador
+   </div>
+</td><td class="summaryTableOwnerCol">DynamicNavigator</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#navigateTo()">navigateTo</a>(channel:String):void</div>
+<div class="summaryTableDescription">
+   Navega para um novo canal, ex: '/canal/'.</div>
+</td><td class="summaryTableOwnerCol">DynamicNavigator</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="defaultTarget"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">defaultTarget</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>defaultTarget:MovieClip</code>&nbsp;&nbsp;[read-write]<p>
+   Alvo padrão para todos os canais
+   <br />MovieClip que serve de container para todos os canais
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get defaultTarget():MovieClip</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set defaultTarget(value:MovieClip):void</code>
+<br>
+</div>
+<a name="itens"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">itens</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>itens:Dictionary</code>&nbsp;&nbsp;[read-write]<p>
+   Dictionary contendo os itens
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get itens():Dictionary</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set itens(value:Dictionary):void</code>
+<br>
+</div>
+<a name="loadedItens"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">loadedItens</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>loadedItens:Dictionary</code>&nbsp;&nbsp;[read-only]<p>
+   Dictionary com itens já carregados
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get loadedItens():Dictionary</code>
+<br>
+</div>
+<a name="siteTitle"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">siteTitle</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>siteTitle:String</code>&nbsp;&nbsp;[read-write]<p>
+   Nome padrão do Site na barra de título do navegador
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get siteTitle():String</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set siteTitle(value:String):void</code>
+<br>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="DynamicNavigator()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">DynamicNavigator</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function DynamicNavigator()</code><p>
+   Construtor da Classe: Singleton
+   <br />Não pode ser instanciado
+   </p></div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="addItem()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addItem</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addItem(menuItem:<a href="../data/DynamicItem.html">DynamicItem</a>):void</code><p>
+   Adiciona itens ao navegador, para que seja criada uma lista de canais
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">menuItem</span>:<a href="../data/DynamicItem.html">DynamicItem</a></code> &mdash; Endereço do link para o item especificado, ex: "/canal/"
+   </td>
+</tr>
+</table>
+</div>
+<a name="getInstance()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getInstance</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function getInstance():<a href="../core/DynamicNavigator.html">DynamicNavigator</a></code><p>
+   Usa o Singleton DynamicNavigator do ambiente ou cria uma instância para ser utilizada
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../core/DynamicNavigator.html">DynamicNavigator</a></code> &mdash; 
+                        Objeto DynamicNavigator
+   
+                        
+                     </td>
+</tr>
+</table>
+</div>
+<a name="init()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">init</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function init(defaultChannel:String, errorChannel:String):void</code><p>
+   Inicia a execução do navegador
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">defaultChannel</span>:String</code> &mdash; Canal padrão para início, ex: '/home/'
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">errorChannel</span>:String</code> &mdash; Canal padrão para erro, ex: '/404/'
+   </td>
+</tr>
+</table>
+</div>
+<a name="navigateTo()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">navigateTo</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function navigateTo(channel:String):void</code><p>
+   Navega para um novo canal, ex: '/canal/'.
+   É a forma padrão de navegação do sistema
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">channel</span>:String</code> &mdash; Canal para navegação, deve constar em um dos itens da lista do DynamicNavigator, ex: '/canal/'
+   </td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

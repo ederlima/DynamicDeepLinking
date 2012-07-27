@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../../print.css" type="text/css" media="print">
+<title>br.flashpedia.DynamicNavigation.core Summary</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'br.flashpedia.DynamicNavigation.core Package - API Documentation';
+				var baseRef = '../../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">DynamicDeeplinking</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../all-classes.html')" href="../../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../../index-list.html')" href="../../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../../index.html?br/flashpedia/DynamicNavigation/core/package-detail.html&amp;br/flashpedia/DynamicNavigation/core/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Package&nbsp;br.flashpedia.DynamicNavigation.core</td><td align="right" id="subNav" class="titleTableSubNav"><a href="package-detail.html#classSummary">Classes</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Package br.flashpedia.DynamicNavigation.core"); titleBar_setSubNav(false,false,false,false,false,false,false,false,false,false,false,false,true,false);}
+--></script>
+<div class="MainContent">
+<br>
+<p>Classes Principais do pacote</p>
+<br>
+<hr>
+<a name="classSummary"></a>
+<div class="summaryTableTitle">Classes</div>
+<table class="summaryTable" cellspacing="0" cellpadding="3">
+<tr>
+<th>&nbsp;</th><th width="30%">Class</th><th width="70%">Description</th>
+</tr>
+<tr class="prow1">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="DynamicLoader.html">DynamicLoader</a></td><td class="summaryTableLastCol">
+  DynamicLoader: SINGLETON
+  </td>
+</tr>
+<tr class="prow0">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="DynamicNavigator.html">DynamicNavigator</a></td><td class="summaryTableLastCol">
+  <h2>DynamicNavigator : Singleton </h2>
+  <p>Classe que controla todo o sistema de navegação por <a href="http://en.wikipedia.org/wiki/Deep_linking" title="Deeplinking na Wikipedia" target="_blank">DeepLinking </a>permitindo assim a navegação em níveis dentro do Flash.<br />
+    Esta Classe utiliza as Classes TopLevel SWFAddress e SWFAddressEvent, que você pode encontrar aqui: <a href="http://www.asual.com" title="Asual" target="_blank">http://www.asual.com</a>.</p>
+ 
+  <p><strong>Como funciona:</strong></p>
+  <p>A DynamicNavigator funciona como uma lista de canais a serem controlados, esta lista de canais possui itens com informações padronizadas, cada item é um Objeto da Classe DynamicItem, a classe DynamicNavigator é responsável por controlar quais itens existem, quais foram ou não carregados e disparar eventos que informem a esses canais como funcionar.</p>
+  <p><strong>Modo de uso:</strong></p>
+  <p>Crie objetos <strong>DynamicItem</strong>, ex:</p>
+  <p><blockquote>var item1:DynamicItem = new DynamicItem();<br />
+    item1.label = &quot;Item 1&quot;;<br />
+    item1.name = &quot;item1&quot;;<br />
+    item1.deeplink = &quot;/canal1/&quot;;<br />
+    item1.file = &quot;canal1.swf&quot;;</blockquote> </p>
+  <p>Repita os passos para cada canal (você pode cirar itens a partir de um xml, ou de uma string Json)</p>
+  <p>A classe <strong>DynamicNavigator</strong> é Singleton, só pode ser instanciada uma vez, então utilize <strong>obj.getInstance();</strong> ao invés de <strong>obj = new DynamicNavigator();</strong></p>
+  <p><blockquote>var navigator:DynamicNavigator;<br />
+    navigator = DynamicNavigator.getInstance();</blockquote> </p>
+  <p><strong>Adicione os itens a lista do DynanicNavigator:</strong></p>
+  <p><blockquote>navigator.addItem(item1); //E assim por diante com todos, em seguida, inicie o navegador<br />
+    navigator.init(&quot;/canal1/&quot;, &quot;/404/&quot;);</blockquote></p>
+  <p>Repare que foram utilizados dois canais como parâmetros para início do navegador, um para canal inicial e outro para canal de erro, desta forma:</p>
+  <ul>
+    <li>Canal inicial: Será carregado por padrão, ao iniciar a classe, caso não haja deeplink configurado, ex: http://www.seusite.com/</li>
+    <li>Canal de erro: Será carregado caso, ao iniciar a classe ou navegar, o canal configurado no deeplink não exista na lista do navegador, ex: http://www.seusite.com/#/canal-invalido/</li>
+  </ul>
+  <p><strong>Para configurar o site para carregar o canal informado no deeplink ao navegar, ex: http://www.seusite.com/#/canal1/, adicione, antes de iniciar a classe:</strong></p>
+  <p><blockquote>navigator.addEventListener(DynamicNavigatorEvent.CHANGE, onChangeFunction);<br />
+    function onChangeFunction(event:DynamicNavigatorEvent):void<br />
+    {<br />
+    navigator.navigateTo(event.navigatorData.anchorValue);<br />
+    } </blockquote></p>
+  <p>Dessa forma, você pode enviar um link direto para uma pessoa, ex: http://www.seusite.com/#/canal1/ que ao carregar o navegador checará a existência desse item em sua lista e carregará corretamente o canal, ou informará o erro caso não exista.</p>
+  <p><strong>Em síntese:</strong></p>
+  <blockquote>
+  <p>import br.flashpedia.DynamicNavigation.core.<br />
+    import br.flashpedia.DynamicNavigation.data.<br />
+    import br.flashpedia.DynamicNavigation.events.</p>
+  <p> var navigator:DynamicNavigator;<br />
+    navigator = DynamicNavigator.getInstance();</p>
+  <p>var item1:DynamicItem = new DynamicItem();<br />
+    item1.label = &quot;Item 1&quot;;<br />
+    item1.name = &quot;item1&quot;;<br />
+    item1.deeplink = &quot;/canal1/&quot;;<br />
+    item1.file = &quot;canal1.swf&quot;;</p>
+  <p>navigator.addItem(item1);</p>
+  <p>navigator.addEventListener(DynamicNavigatorEvent.CHANGE, onChange);</p>
+  <p>navigator.init(&quot;/canalpadrao/&quot;, &quot;/canaldeerro/&quot;); </p>
+  </blockquote>
+  <p>Obviamente que você pode criar botões de menu e navegar através deles, basta anexar uma propriedade com valor do deeplink de um DynamicItem existente na lista do DynamicNavigator, ex:</p>
+  <blockquote>
+  <p>button1.deeplink = &quot;/canal1/&quot;;<br />
+    button1.addEventListener(MouseEvent.CLICK, navOnClick);<br />
+    function navOnClick(event:MouseEvent):void<br />
+    {<br />
+    navigator.navigateTo(event.target.deeplink); <br />
+    }</p>
+  </blockquote>
+  </body>
+  </td>
+</tr>
+</table>
+<p></p>
+<div>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</div>
+</body>
+</html>
+<!-- -->
